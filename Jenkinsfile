@@ -17,11 +17,16 @@ pipeline {
          sh 'npm install'
        }
     }
+     environment {
+            CI = 'true'
+        }
+
     stage('Test') {
       steps {
         sh 'npm test'
       }
     }
+    
     stage('Building image') {
       steps{
         script {
