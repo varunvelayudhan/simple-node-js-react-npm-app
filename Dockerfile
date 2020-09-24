@@ -1,19 +1,17 @@
-FROM node:13.12.0-alpine
+FROM node
 
-# set working directory
+RUN apt-get update && apt-get upgrade -y \
+    && apt-get clean
+
+RUN mkdir /app
 WORKDIR /app
 
-# add `/app/node_modules/.bin` to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
+COPY package.json /app/
+RUN npm install --only=production
 
-# install app dependencies
-COPY package.json ./
-COPY package-lock.json ./
-RUN npm install --silent
-RUN npm install react-scripts@3.4.1 -g --silent
+COPY src /app/src
 
-# add app
-COPY . ./
+EXPOSE 3000
 
-# start app
-CMD ["npm", "start"]
+CMD [ "npm", "start" ]
+
