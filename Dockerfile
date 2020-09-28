@@ -1,15 +1,15 @@
-FROM node:10.16.3
+FROM node:10.16.3                                          
 
-#RUN apt-get update && apt-get upgrade -y \
-#    && apt-get clean
+RUN apt-get update && apt-get upgrade -y \
+    && apt-get clean
 
-#RUN mkdir /app
-WORKDIR /usr/src/app
+RUN mkdir /app
+WORKDIR /app
 
-COPY package*.json ./
-RUN npm install 
+COPY package.json /app/
+RUN npm install --only=production
 
-COPY . .
+COPY src /app/src
 
 EXPOSE 3000
 
