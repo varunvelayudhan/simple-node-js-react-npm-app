@@ -1,4 +1,3 @@
-
 FROM node
 
 RUN apt-get update && apt-get upgrade -y \
@@ -12,9 +11,6 @@ RUN npm install --only=production
 
 COPY src /app/src
 
+EXPOSE 3000
 
 CMD [ "npm", "start" ]
-
-
-
-
